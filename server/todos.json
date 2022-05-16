@@ -1,0 +1,108 @@
+{
+	"todos": [
+		{
+			"id": "1",
+			"todo": "Todo 1",
+			"date": "2022-05-14",
+			"time": "15:00",
+			"prio": "high",
+			"completed": "false"
+		},
+		{
+			"id": "2",
+			"todo": "Todo 2",
+			"date": "2022-05-15",
+			"time": "15:00",
+			"prio": "mid",
+			"completed": "false"
+		},
+		{
+			"id": "3",
+			"todo": "Todo 3 POST",
+			"date": "2022-05-14",
+			"time": "15:00",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "4",
+			"todo": "Todo 4 POST",
+			"date": "2022-05-14",
+			"time": "15:00",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "5",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "15:00",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "6",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "15:00",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "7",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "15:00",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "1338",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "14:26",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "1339",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "14:26",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "INSOMNIA",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "14:26",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "INSOMNIA2",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "14:26",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "INSOMNIA3",
+			"todo": "Todo 5 POST",
+			"date": "2022-05-14",
+			"time": "14:26",
+			"prio": "low",
+			"completed": "false"
+		},
+		{
+			"id": "INSOMNIA",
+			"todo": "ISSUE",
+			"date": "2022-05-16",
+			"time": "14:58",
+			"prio": "high",
+			"completed": "false"
+		}
+	]
+}
