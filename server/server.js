@@ -12,16 +12,80 @@ fs.readFile("todos.json", "utf8", (err, data) => {
   todos = parsedData;
 });
 
+// DRY THIS CODE. EX. WRITEFILE ETC
+
 const server = http.createServer((req, res) => {
-  // GET
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  const items = req.url.split("/");
+
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.statusCode = 200;
+    res.end();
+  }
+
+  // GET ALL
   if (req.url === "/todos") {
     if (req.method === "GET") {
-      res.setHeader("Access-Control-Allow-Origin", "*");
       console.log("GET");
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(todos));
     }
   }
+
+  // GET BY ID
+  if (items[2]) {
+    const todoID = items[2];
+    if (req.method === "GET") {
+      const filterByID = todos.todos.filter((todo) => todo.id === todoID);
+      res.end(JSON.stringify(filterByID));
+    }
+    // DELETE
+    if (req.method === "DELETE") {
+      console.log("DELETE");
+      const filterByID = todos.todos.filter((todo) => todo.id !== todoID);
+      todos.todos = filterByID;
+      const updatedTodos = JSON.stringify(todos, null, "\t");
+      res.end();
+
+      fs.writeFile("todos.json", updatedTodos, (err) => {
+        if (err) throw err;
+        console.log(`Updated todos, deleted Todo with ID: ${todoID}`);
+      });
+    }
+    if (req.method === "PUT") {
+      console.log("PUT");
+      console.log(todoID);
+      req.on("data", (chunk) => {
+        const updatedTodo = JSON.parse(chunk);
+        console.log(updatedTodo);
+
+        const filterByID = todos.todos.filter((todo) => todo.id !== todoID);
+        todos.todos = filterByID;
+        todos.todos.push(updatedTodo);
+        const updatedTodos = JSON.stringify(todos, null, "\t");
+        res.end();
+
+        fs.writeFile("todos.json", updatedTodos, (err) => {
+          if (err) throw err;
+          console.log(`Updated todos, updated Todo with ID: ${todoID}`);
+        });
+      });
+    }
+    if (req.method === "PATCH") {
+      console.log("PATCH");
+      req.on("data", (chunk) => {
+        const updatedTodo = JSON.parse(chunk);
+        console.log(updatedTodo);
+      });
+      res.end();
+    }
+  }
+
   // POST
   if (req.url === "/todos") {
     if (req.method === "POST") {
@@ -31,6 +95,7 @@ const server = http.createServer((req, res) => {
         todos.todos.push(newTodo);
         const stringifiedTodos = JSON.stringify(todos, null, "\t");
         res.statusCode = 200;
+        res.setHeader("Access-Control-Allow-Origin", "*");
         res.end();
         fs.writeFile("todos.json", stringifiedTodos, (err) => {
           if (err) throw err;
@@ -39,10 +104,10 @@ const server = http.createServer((req, res) => {
       });
     }
   }
-  // DELETE
-  // PUT
-});
 
+  // PUT
+  // PATCH (PARTIAL: BARA ÄNDRA KLAR/EJ KLAR)
+});
 server.listen(port, () => {
   console.log(`Server is listening to port: ${port}`);
 });
