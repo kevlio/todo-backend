@@ -1,44 +1,28 @@
 {
 	"todos": [
 		{
-			"id": "839",
-			"todo": "TEST1337 PUTSKI SDSDSD",
+			"id": "3295",
+			"todo": "Byta däck bil",
 			"date": "2022-05-20",
-			"time": "23:37",
+			"time": "12:00",
 			"prio": "mid",
-			"completed": "false"
+			"completed": false
 		},
 		{
-			"id": "3069",
-			"todo": "TEST1337 PUTSKI",
+			"id": "828",
+			"todo": "Tvätta kläder inför fest",
 			"date": "2022-05-20",
-			"time": "23:37",
-			"prio": "mid",
-			"completed": "false"
-		},
-		{
-			"id": "111",
-			"todo": "last put",
-			"date": "2022-05-18",
-			"time": "00:00",
+			"time": "09:00",
 			"prio": "high",
-			"completed": "false"
+			"completed": false
 		},
 		{
-			"id": "2923",
-			"todo": "LAST LAST PUT",
-			"date": "0001-01-01",
-			"time": "00:00",
-			"prio": "low",
-			"completed": "false"
-		},
-		{
-			"id": "8691",
-			"todo": "last last last last put",
+			"id": "3128",
+			"todo": "Städa hemma -papperskorg badrum",
 			"date": "2022-05-20",
-			"time": "00:00",
-			"prio": "mid",
-			"completed": "false"
+			"time": "10:00",
+			"prio": "high",
+			"completed": false
 		}
 	]
 }

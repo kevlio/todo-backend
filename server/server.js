@@ -63,26 +63,35 @@ const server = http.createServer((req, res) => {
       req.on("data", (chunk) => {
         const updatedTodo = JSON.parse(chunk);
         console.log(updatedTodo);
-
-        const filterByID = todos.todos.filter((todo) => todo.id !== todoID);
-        todos.todos = filterByID;
-        todos.todos.push(updatedTodo);
+        const todoIndex = todos.todos.findIndex((todo) => todo.id === todoID);
+        todos.todos[todoIndex] = updatedTodo;
         const updatedTodos = JSON.stringify(todos, null, "\t");
         res.end();
-
         fs.writeFile("todos.json", updatedTodos, (err) => {
           if (err) throw err;
           console.log(`Updated todos, updated Todo with ID: ${todoID}`);
         });
       });
     }
+
     if (req.method === "PATCH") {
       console.log("PATCH");
+      console.log(todoID);
       req.on("data", (chunk) => {
         const updatedTodo = JSON.parse(chunk);
         console.log(updatedTodo);
+        const todoIndex = todos.todos.findIndex((todo) => todo.id === todoID);
+        todos.todos[todoIndex].completed = updatedTodo;
+        console.log(todos.todos[todoIndex]);
+        const updatedTodos = JSON.stringify(todos, null, "\t");
+        res.end();
+        fs.writeFile("todos.json", updatedTodos, (err) => {
+          if (err) throw err;
+          console.log(
+            `Updated todos, partially updated Todo with ID: ${todoID}`
+          );
+        });
       });
-      res.end();
     }
   }
 
