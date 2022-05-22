@@ -5,9 +5,10 @@ Kunskapskontroll 1: Todo list API
 
 ● Nice to have och lära: 
 - Sammanspelande filter med bättre uppdateringsscenarios
-
-● Rensa kod console.logs etc
 ● Ominstallera VS-code? Har jag kvar mina preferenser då? (som prettify vid spar etc)
+● Dela upp frontend kod
+
+Hitta rätt statuskoder för olika request
 
 *** Testa nedan med Insomnia *** 
 För att uppnå Väl Godkänt behöver du implementera minst 4 av följande kriterier:

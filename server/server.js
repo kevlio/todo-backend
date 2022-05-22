@@ -29,6 +29,7 @@ const server = http.createServer((req, res) => {
   }
 
   // GET ALL
+  // Hur felhantera denna?
   if (req.url === "/todos") {
     if (req.method === "GET") {
       console.log("GET");
@@ -37,19 +38,76 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // GET BY ID
+  // POST
+  if (req.url === "/todos") {
+    if (req.method === "POST") {
+      console.log("POST");
+      req.on("data", (chunk) => {
+        const newTodo = JSON.parse(chunk);
+        const newTodoKeys = Object.keys(newTodo);
+        const checkTodoKeys = [
+          "id",
+          "todo",
+          "date",
+          "time",
+          "prio",
+          "completed",
+        ];
+
+        if (
+          newTodoKeys.every((item) => checkTodoKeys.includes(item)) &&
+          checkTodoKeys.every((item) => newTodoKeys.includes(item))
+        ) {
+          if (typeof newTodo.id === "number") {
+            console.log("POST Object OK");
+          } else {
+            res.statusCode = 422;
+            res.end();
+            return;
+          }
+        } else {
+          res.statusCode = 400;
+          res.end();
+          return;
+        }
+
+        todos.todos.push(newTodo);
+        const stringifiedTodos = JSON.stringify(todos, null, "\t");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.statusCode = 201;
+        res.end();
+        fs.writeFile("todos.json", stringifiedTodos, (err) => {
+          if (err) throw err;
+          console.log("Added todo");
+        });
+      });
+    }
+  }
+
+  // LOOK UP BY ID
   if (items[2]) {
-    const todoID = items[2];
+    const todoID = parseInt(items[2]);
+    const findTodoByID = todos.todos.find((todo) => todo.id === todoID);
+    if (!findTodoByID) {
+      res.statusCode = 404;
+      res.end();
+      return;
+    }
+
+    // GET
     if (req.method === "GET") {
       const filterByID = todos.todos.filter((todo) => todo.id === todoID);
+      res.statusCode = 200;
       res.end(JSON.stringify(filterByID));
     }
+
     // DELETE
     if (req.method === "DELETE") {
       console.log("DELETE");
       const filterByID = todos.todos.filter((todo) => todo.id !== todoID);
       todos.todos = filterByID;
       const updatedTodos = JSON.stringify(todos, null, "\t");
+      res.statusCode = 200;
       res.end();
 
       fs.writeFile("todos.json", updatedTodos, (err) => {
@@ -57,6 +115,8 @@ const server = http.createServer((req, res) => {
         console.log(`Updated todos, deleted Todo with ID: ${todoID}`);
       });
     }
+
+    // PUT
     if (req.method === "PUT") {
       console.log("PUT");
       console.log(todoID);
@@ -66,6 +126,7 @@ const server = http.createServer((req, res) => {
         const todoIndex = todos.todos.findIndex((todo) => todo.id === todoID);
         todos.todos[todoIndex] = updatedTodo;
         const updatedTodos = JSON.stringify(todos, null, "\t");
+        res.statusCode = 200;
         res.end();
         fs.writeFile("todos.json", updatedTodos, (err) => {
           if (err) throw err;
@@ -74,6 +135,7 @@ const server = http.createServer((req, res) => {
       });
     }
 
+    // PATCH
     if (req.method === "PATCH") {
       console.log("PATCH");
       console.log(todoID);
@@ -84,6 +146,7 @@ const server = http.createServer((req, res) => {
         todos.todos[todoIndex].completed = updatedTodo;
         console.log(todos.todos[todoIndex]);
         const updatedTodos = JSON.stringify(todos, null, "\t");
+        res.statusCode = 200;
         res.end();
         fs.writeFile("todos.json", updatedTodos, (err) => {
           if (err) throw err;
@@ -94,43 +157,8 @@ const server = http.createServer((req, res) => {
       });
     }
   }
-
-  // POST
-  if (req.url === "/todos") {
-    if (req.method === "POST") {
-      console.log("POST");
-      req.on("data", (chunk) => {
-        const newTodo = JSON.parse(chunk);
-        todos.todos.push(newTodo);
-        const stringifiedTodos = JSON.stringify(todos, null, "\t");
-        res.statusCode = 200;
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.end();
-        fs.writeFile("todos.json", stringifiedTodos, (err) => {
-          if (err) throw err;
-          console.log("Added todo");
-        });
-      });
-    }
-  }
-
-  // PUT
-  // PATCH (PARTIAL: BARA ÄNDRA KLAR/EJ KLAR)
 });
+
 server.listen(port, () => {
   console.log(`Server is listening to port: ${port}`);
 });
-
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Methods": "OPTIONS, POST, GET",
-//   "Access-Control-Max-Age": 2592000, // 30 days
-//   /** add other headers as per requirement */
-// };
-// res.setHeader("Access-Control-Allow-Origin", "*");
-// res.setHeader("Access-Control-Allow-Credentials", "true");
-// res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-// res.setHeader(
-//   "Access-Control-Allow-Headers",
-//   "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-// );

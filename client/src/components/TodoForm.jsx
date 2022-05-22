@@ -37,8 +37,10 @@ function TodoForm() {
   const [editMode, setEditMode] = useState(false);
   const [editComplete, setEditComplete] = useState(false);
 
-  // Request mode
-  const [backendRequest, setBackendRequest] = useState("");
+  // Request Panel
+  const [backendRequest, setBackendRequest] = useState(["", ""]);
+  const [reqURL, setReqURL] = useState("");
+  const [response, setResponse] = useState(["", "", "", ""]);
 
   // Filters
   const [filters, setFilters] = useState([]);
@@ -48,11 +50,20 @@ function TodoForm() {
 
   // Get all todos
   const getTodos = () => {
-    setBackendRequest("GET");
-    axios.get("http://192.168.10.184:5000/todos").then((response) => {
-      setTodos(response.data);
-      setFilteredTodos(response.data.todos);
-    });
+    const url = "http://localhost:5000/todos";
+    axios
+      .get(url)
+      .then((response) => {
+        setTodos(response.data);
+        setFilteredTodos(response.data.todos);
+      })
+      .catch(function (error) {
+        console.error(error);
+        setGetResponse(error);
+      });
+    setBackendRequest(["", "white"]);
+    setResponse(["", "", "", ""]);
+    setResponse(["", "", ""]);
   };
 
   useEffect(() => {
@@ -63,7 +74,7 @@ function TodoForm() {
   const addTodo = () => {
     setFilteredTodos(todos.todos);
     const newTodo = {
-      id: Math.floor(Math.random() * 10000).toString(),
+      id: Math.floor(Math.random() * 10000),
       todo: todo,
       date: date,
       time: time,
@@ -71,38 +82,51 @@ function TodoForm() {
       completed: false,
     };
 
+    const url = "http://localhost:5000/todos";
+    setReqURL(url);
+
     axios
-      .post("http://localhost:5000/todos", newTodo)
+      .post(url, newTodo)
       .then(function (response) {
-        console.log(response.status);
+        console.log(response);
         getTodos();
-        setBackendRequest("POST");
         reset();
+        setBackendRequest(["POST", "blue.400"]);
+        setResponse([response.status, response.statusText, response.data]);
       })
       .catch(function (error) {
         console.error(error);
+        setResponse([error.response.status, error.response.statusText]);
       });
   };
 
   // DELETE
   const deleteTodo = (id) => {
     setFilteredTodos(todos.todos);
+
+    const url = `http://localhost:5000/todos/${id}`;
+    setReqURL(url);
+
     axios
-      .delete(`http://localhost:5000/todos/${id}`)
+      .delete(url)
       .then(function (response) {
-        console.log(response.data);
+        console.log(response);
         getTodos();
-        setBackendRequest("DELETE");
+        setBackendRequest(["DELETE", "red"]);
+        setResponse([response.status, response.statusText, response.data]);
       })
       .catch(function (error) {
         console.error(error);
+        setResponse([error.response.status, error.response.statusText]);
       });
   };
 
   // PUT
   const editTodo = (id) => {
     setFilteredTodos(todos.todos);
-    setBackendRequest("PUT");
+    setBackendRequest(["", "white"]);
+    setResponse(["", "", "", ""]);
+
     if (!editComplete) {
       setEditMode(true);
       const todo = todos.todos.filter((todo) => {
@@ -116,6 +140,9 @@ function TodoForm() {
       setCompleted(todo[0].completed);
 
       setEditComplete(true);
+
+      const url = `http://localhost:5000/todos/${todo[0].id}`;
+      setReqURL(url);
     }
 
     if (editComplete) {
@@ -136,15 +163,17 @@ function TodoForm() {
       axios
         .request(options)
         .then(function (response) {
-          console.log(response.data);
+          console.log(response);
           getTodos();
-          setBackendRequest("PUT");
           setEditMode(false);
           setEditComplete(false);
           reset();
+          setBackendRequest(["PUT", "purple.400"]);
+          setResponse([response.status, response.statusText, response.data]);
         })
         .catch(function (error) {
           console.error(error);
+          setResponse([error.response.status, error.response.statusText]);
         });
     }
   };
@@ -159,9 +188,12 @@ function TodoForm() {
       }
     });
 
+    const url = `http://localhost:5000/todos/${id}`;
+    setReqURL(url);
+
     const options = {
       method: "PATCH",
-      url: `http://localhost:5000/todos/${id}`,
+      url: url,
       headers: { "Content-Type": "application/json" },
       data: filterByID[0].completed,
     };
@@ -170,10 +202,12 @@ function TodoForm() {
       .then(function (response) {
         console.log(response);
         getTodos();
-        setBackendRequest("PATCH");
+        setBackendRequest(["PATCH", "pink.400"]);
+        setResponse([response.status, response.statusText, response.data]);
       })
       .catch(function (error) {
         console.error(error);
+        setResponse([error.response.status, error.response.statusText]);
       });
   };
 
@@ -250,7 +284,13 @@ function TodoForm() {
   return (
     <Center mt={4}>
       <Box display="flex" flexDirection="column">
-        <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
+        <Box
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          gap={1}
+          justifyContent="center"
+        >
           <Text fontSize="1xl">KK1 By Kevlio </Text>
           <GiCapybara size={15} />
           <GiCapybara size={20} />
@@ -258,7 +298,21 @@ function TodoForm() {
           <GiCapybara size={20} />
           <GiCapybara size={15} />
         </Box>
-        <Text fontSize="2xl">Request mode: {backendRequest}</Text>
+        <Box>
+          <Box
+            fontFamily="Consolas"
+            backgroundColor="black"
+            color={backendRequest[1]}
+            p={2}
+            my={2}
+          >
+            <Text>Request mode: {backendRequest[0]}</Text>
+            <Text>URL: {reqURL}</Text>
+            <Text>
+              Status code: {response[0]} {response[1]}
+            </Text>
+          </Box>
+        </Box>
         <Button
           onClick={showForm}
           color="white"
