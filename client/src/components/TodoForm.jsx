@@ -188,6 +188,9 @@ function TodoForm() {
       }
     });
 
+    console.log(filterByID[0].completed);
+    console.log(typeof filterByID[0].completed);
+
     const url = `http://localhost:5000/todos/${id}`;
     setReqURL(url);
 

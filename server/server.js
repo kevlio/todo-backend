@@ -21,6 +21,8 @@ const server = http.createServer((req, res) => {
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
   );
   const items = req.url.split("/");
+  console.log(items);
+  console.log(items.length);
 
   if (req.method === "OPTIONS") {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -54,11 +56,22 @@ const server = http.createServer((req, res) => {
           "completed",
         ];
 
+        // Check if ID already exists
+        const idCheck = todos.todos.filter((todo) => todo.id === newTodo.id);
+
         if (
           newTodoKeys.every((item) => checkTodoKeys.includes(item)) &&
           checkTodoKeys.every((item) => newTodoKeys.includes(item))
         ) {
-          if (typeof newTodo.id === "number") {
+          if (
+            idCheck.length === 0 &&
+            typeof newTodo.id === "number" &&
+            typeof newTodo.todo === "string" &&
+            typeof newTodo.date === "string" &&
+            typeof newTodo.time === "string" &&
+            typeof newTodo.prio === "string" &&
+            typeof newTodo.completed === "boolean"
+          ) {
             console.log("POST Object OK");
           } else {
             res.statusCode = 422;
@@ -140,10 +153,18 @@ const server = http.createServer((req, res) => {
       console.log("PATCH");
       console.log(todoID);
       req.on("data", (chunk) => {
-        const updatedTodo = JSON.parse(chunk);
-        console.log(updatedTodo);
+        const updatedCompletion = JSON.parse(chunk);
+        console.log(typeof updatedCompletion);
+
+        if (typeof updatedCompletion !== "boolean") {
+          res.statusCode = 422;
+          res.end();
+          return;
+        }
+
+        console.log(updatedCompletion);
         const todoIndex = todos.todos.findIndex((todo) => todo.id === todoID);
-        todos.todos[todoIndex].completed = updatedTodo;
+        todos.todos[todoIndex].completed = updatedCompletion;
         console.log(todos.todos[todoIndex]);
         const updatedTodos = JSON.stringify(todos, null, "\t");
         res.statusCode = 200;

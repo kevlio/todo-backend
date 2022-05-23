@@ -1,20 +1,60 @@
 {
 	"todos": [
 		{
-			"id": 2044,
-			"todo": "Löpning",
-			"date": "2022-05-22",
-			"time": "17:00",
-			"prio": "high",
-			"completed": false
-		},
-		{
 			"id": 6015,
 			"todo": "Svara meddelanden",
 			"date": "2022-05-22",
 			"time": "18:00",
 			"prio": "mid",
-			"completed": false
+			"completed": true
+		},
+		{
+			"id": 1337,
+			"todo": "INSOMNIA",
+			"date": "INSOMNIA",
+			"time": "INSOMNIA",
+			"prio": "high",
+			"completed": true
+		},
+		{
+			"id": 1337,
+			"todo": "1337",
+			"date": "INSOMNIA",
+			"time": "INSOMNIA",
+			"prio": "high",
+			"completed": true
+		},
+		{
+			"id": 1338,
+			"todo": "1337",
+			"date": "INSOMNIA",
+			"time": "INSOMNIA",
+			"prio": "high",
+			"completed": true
+		},
+		{
+			"id": 1338,
+			"todo": "1337",
+			"date": "INSOMNIA",
+			"time": "INSOMNIA",
+			"prio": "high",
+			"completed": true
+		},
+		{
+			"id": 1339,
+			"todo": "1337",
+			"date": "INSOMNIA",
+			"time": "INSOMNIA",
+			"prio": "high",
+			"completed": true
+		},
+		{
+			"id": 133922,
+			"todo": "1337",
+			"date": "INSOMNIA",
+			"time": "INSOMNIA",
+			"prio": "high",
+			"completed": true
 		}
 	]
 }
