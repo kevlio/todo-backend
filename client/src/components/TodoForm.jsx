@@ -334,6 +334,7 @@ function TodoForm() {
             <Input
               ref={todoRef}
               isRequired
+              autoComplete="off"
               name="todo"
               placeholder="Add to-do"
               onChange={(e) => setTodo(e.target.value)}
