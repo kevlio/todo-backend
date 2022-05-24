@@ -1,4 +1,4 @@
-# Todo API
+# Todo API [under construction] 
 
 ## A) General guidelines
 
@@ -18,11 +18,13 @@
     headers: {'Content-Type': 'application/json'}
     :id: Where id is a unique value (data-type Number) of the Item, to see all Items see section B) GET.
 
+#### 404 - Not Found. The requested Item not found. **See B) GET to see all Items available*
+
 ## D) POST /todos - Add a todo
 
 #### Data Requirements:
 
- 1). Correct Object Keys<br>2). Correct Value Datatype<br>3). Unique id Value
+ 1). Unique id Value<br>2). Correct Object Keys<br>3). Correct Value Datatype
 
     method: 'POST',
     url: 'http://localhost:5000/todos',
@@ -39,10 +41,8 @@
 ### Status Codes
 
 #### 201 - Created. Succesfully posted New Todo Item
-
-#### 400 - Bad Request. Requirement 1) not fullfilled.
-
-#### 422 - Unprocesseable Entity. Requirement 1) or 3) not fullfilled.
+#### 400 - Bad Request. Requirement 2) Object keys not fullfilled.
+#### 422 - Unprocesseable Entity. Requirement 1) and/or 3) not fullfilled.
 
 ## E) PUT /todos/:id - Change a todo (full)
 
@@ -64,7 +64,9 @@
 ### Status Codes
 
 #### 200 - OK. Succesfully changed Item with ID in the request
+#### 400 - Bad Request. Object keys requirement not fullfilled. **See D) Data Requirements or* or F) PATCH for partial update
 #### 404 - Not Found. The requested Item not found. **See B) GET to see all Items available*
+#### 422 - Unprocesseable Entity. Object datatype error. **See D) Data Requirements*
 
 ## F) PATCH /todos/:id - Change Completion status
 
@@ -78,8 +80,8 @@
 
 ### Status Codes
 #### 200 - OK. Succesfully updated Item with :id
+#### 404 - Not Found. The requested Item not found. **See B) GET to see all Items available*
 #### 422 - Unprocesseable Entity. Requirement 1) not fullfilled.
-
 
 ## G) DELETE /todos/:id - Delete a todo
 

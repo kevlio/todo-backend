@@ -1,17 +1,9 @@
 Kunskapskontroll 1: Todo list API
 
 *** Kvar att fixa *** 
+TROR ATT DETTA ÄR KLART, MEN KONTROLLERA NOGA:
 ---
 ● API:et ska innehålla en README-fil med tillhörande dokumentation med en lista på varje route och exempel på hur den anropas
-
-● Nice to have och lära: 
-- Sammanspelande filter med bättre uppdateringsscenarios
-● Ominstallera VS-code? Har jag kvar mina preferenser då? (som prettify vid spar etc)
-● Dela upp frontend kod
-
-Hitta rätt statuskoder för olika request
-
-*** Testa nedan med Insomnia *** 
 För att uppnå Väl Godkänt behöver du implementera minst 4 av följande kriterier:
 ● API:et ska svara med lämpligt meddelande och statuskod om allt gått väl
 ● API:et ska svara med lämpligt meddelande och statuskod om routen inte finns
@@ -19,6 +11,12 @@ För att uppnå Väl Godkänt behöver du implementera minst 4 av följande krit
 ● API:et ska svara med lämpligt meddelande och statuskod om requesten inte är
 korrekt
 
+EJ NÖDVÄNDIGT, GÖR BARA OM KUL:
+----
+● Nice to have och lära: 
+- Sammanspelande filter med bättre uppdateringsscenarios
+● Ominstallera VS-code? Har jag kvar mina preferenser då? (som prettify vid spar etc)
+● Dela upp frontend kod
 
 KLART:
 ------

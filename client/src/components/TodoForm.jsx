@@ -40,7 +40,7 @@ function TodoForm() {
   // Request Panel
   const [backendRequest, setBackendRequest] = useState(["", ""]);
   const [reqURL, setReqURL] = useState("");
-  const [response, setResponse] = useState(["", "", "", ""]);
+  const [response, setResponse] = useState(["", "", "", {}]);
 
   // Filters
   const [filters, setFilters] = useState([]);
@@ -188,9 +188,6 @@ function TodoForm() {
       }
     });
 
-    console.log(filterByID[0].completed);
-    console.log(typeof filterByID[0].completed);
-
     const url = `http://localhost:5000/todos/${id}`;
     setReqURL(url);
 
@@ -308,12 +305,21 @@ function TodoForm() {
             color={backendRequest[1]}
             p={2}
             my={2}
+            maxW="300px"
           >
             <Text>Request mode: {backendRequest[0]}</Text>
             <Text>URL: {reqURL}</Text>
             <Text>
               Status code: {response[0]} {response[1]}
             </Text>
+            <Box>
+              Data:{" "}
+              {response[2].id &&
+                `id: ${response[2].id}, todo: ${response[2].todo}, 
+              todo: ${response[2].prio}, todo: ${response[2].date}, 
+              todo: ${response[2].time}, todo: ${response[2].completed}    
+              } `}
+            </Box>
           </Box>
         </Box>
         <Button
