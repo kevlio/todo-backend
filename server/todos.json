@@ -1,36 +1,12 @@
 {
-	"todos": [
-		{
-			"id": 7481,
-			"todo": "Äta",
-			"date": "2022-05-24",
-			"time": "16:00",
-			"prio": "high",
-			"completed": false
-		},
-		{
-			"id": 9599,
-			"todo": "Köpa linser",
-			"date": "2022-05-24",
-			"time": "17:00",
-			"prio": "mid",
-			"completed": false
-		},
-		{
-			"id": 9430,
-			"todo": "Kolla todolista",
-			"date": "2022-05-24",
-			"time": "15:30",
-			"prio": "high",
-			"completed": false
-		},
-		{
-			"id": 715,
-			"todo": "1337",
-			"date": "INSOMNIA",
-			"time": "INSOMNIA",
-			"prio": "high",
-			"completed": false
-		}
-	]
+  "todos": [
+    {
+      "id": 1,
+      "todo": "Hej Oscar! =)",
+      "date": "2022-05-26",
+      "time": "23:59",
+      "prio": "high",
+      "completed": false
+    }
+  ]
 }

@@ -28,11 +28,18 @@ const server = http.createServer((req, res) => {
   }
 
   // GET ALL
-  if (req.url === "/todos") {
-    if (req.method === "GET") {
+  if (req.method === "GET") {
+    if (req.url === "/todos") {
       console.log("GET");
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(todos));
+    } else {
+      if (path.length === 2 || req.url === "/todos/") {
+        res.statusCode = 404;
+        res.end(
+          "Wrong path, to GET all items use URL: http://localhost:5000/todos"
+        );
+      }
     }
   }
 
@@ -134,7 +141,6 @@ const server = http.createServer((req, res) => {
           res.end(`Object datatype error`);
           return;
         }
-
         const todoIndex = todos.todos.findIndex((todo) => todo.id === todoID);
         todos.todos[todoIndex] = updatedTodo;
         res.statusCode = 200;

@@ -1,4 +1,4 @@
-# Todo API [under construction] 
+# Todo API
 
 ## A) General guidelines
 
@@ -11,6 +11,11 @@
     url: 'http://localhost:5000/todos',
     headers: {'Content-Type': 'application/json'}
 
+### Status Codes
+
+#### 200 - OK
+#### 404 - Not Found
+
 ## C) GET /todos/:id - Get Todo by ID
 
     method: 'GET',
@@ -18,6 +23,9 @@
     headers: {'Content-Type': 'application/json'}
     :id: Where id is a unique value (data-type Number) of the Item, to see all Items see section B) GET.
 
+### Status Codes
+
+#### 200 - OK
 #### 404 - Not Found. The requested Item not found. **See B) GET to see all Items available*
 
 ## D) POST /todos - Add a todo
@@ -41,8 +49,8 @@
 ### Status Codes
 
 #### 201 - Created. Succesfully posted New Todo Item
-#### 400 - Bad Request. Requirement 2) Object keys not fullfilled.
-#### 422 - Unprocesseable Entity. Requirement 1) and/or 3) not fullfilled.
+#### 400 - Bad Request. Requirement 2) Object keys not fullfilled
+#### 422 - Unprocesseable Entity. Requirement 1) and/or 3) not fullfilled
 
 ## E) PUT /todos/:id - Change a todo (full)
 
